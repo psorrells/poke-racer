@@ -73,7 +73,7 @@ function runPokemon() {
       function changeLocation() {
           for (pokemon of pokeArray) {
             let prevValue = parseFloat(document.querySelector(`#${pokemon.name}`).style.marginLeft.replace('px',''))
-            let obstacle = -Math.random() * (pokemon.height/2 - 5)**2
+            let obstacle = -Math.random() * (pokemon.height/2.5 - 4)**2
             console.log(prevValue + ' / ' + obstacle)
             let newValue = pokemon.speed + prevValue + obstacle
             document.querySelector(`#${pokemon.name}`).style.marginLeft = `${newValue}px`
