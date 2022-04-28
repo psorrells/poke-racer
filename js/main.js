@@ -3,6 +3,8 @@ document.querySelector('button').addEventListener('click', getFetch)
 
 let racers = []
 
+const windSpeed = Math.floor(Math.random()*22 - 11)
+
 function getFetch(){
   const poke = document.querySelector('#pokeAdd').value.toLowerCase()
   const url = 'https://pokeapi.co/api/v2/pokemon/'+poke
@@ -27,9 +29,16 @@ function getFetch(){
       })
       .catch(err => {
           console.log(`error ${err}`)
-      });
-
-
-
-      
+      });   
 }
+
+
+function calculateSpeed(pokemon) {
+  let speed = Math.random() * 5
+
+  speed += pokemon.weight/pokemon.height + pokemon.height/windSpeed + windSpeed/pokemon.weight
+
+  return speed
+
+}
+
