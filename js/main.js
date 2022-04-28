@@ -46,7 +46,7 @@ function calculateSpeed(pokemon) {
 
   console.log(`readiness is ${readiness}`)
 
-  speed += readiness + pokemon.height/(pokemon.weight * windSpeed) + windSpeed/pokemon.weight
+  speed += readiness + pokemon.height/(pokemon.weight * (windSpeed == 0 ? 1 : windSpeed)) + windSpeed/pokemon.weight
 
   console.log(`total speed with wind interference of ${pokemon.name} is ${speed}`)
 
@@ -65,13 +65,6 @@ function runPokemon() {
   let timer = setInterval(function() {
       //how much time has passed from start
       timePassed = Date.now() - start
-    for (pokemon of pokeArray) {
-      let prevValue = parseFloat(document.querySelector(`#${pokemon.name}`).style.marginLeft.replace('px',''))
-      if (prevValue > 1000) {
-          document.querySelector('h1').textContent = `${pokemon.name} wins!`
-          clearInterval(timer) // finish the animation after someone crosses the finish line
-      } 
-    }
       
       //draw the animation at the moment time passed
       changeLocation()
@@ -80,9 +73,14 @@ function runPokemon() {
       function changeLocation() {
           for (pokemon of pokeArray) {
             let prevValue = parseFloat(document.querySelector(`#${pokemon.name}`).style.marginLeft.replace('px',''))
-            let obstacle = -Math.random() * (pokemon.height/4 - 2.5)**2
-            console.log(prevValue)
-            document.querySelector(`#${pokemon.name}`).style.marginLeft = `${pokemon.speed + prevValue + obstacle}px`
+            let obstacle = -Math.random() * (pokemon.height/2 - 5)**2
+            console.log(prevValue + ' / ' + obstacle)
+            let newValue = pokemon.speed + prevValue + obstacle
+            document.querySelector(`#${pokemon.name}`).style.marginLeft = `${newValue}px`
+            if (newValue > 1000) {
+              document.querySelector('h1').textContent = `${pokemon.name} wins!`
+              clearInterval(timer) // finish the animation after someone crosses the finish line
+          } 
           } 
       }
 
