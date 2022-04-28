@@ -1,9 +1,11 @@
 //Example fetch using pokemonapi.co
-document.querySelector('button').addEventListener('click', getFetch)
+document.querySelector('#add-pokemon').addEventListener('click', getFetch)
+document.querySelector('#start').addEventListener('click',runPokemon)
 
 let racers = []
 
 const windSpeed = Math.floor(Math.random()*22 - 11)
+document.querySelector('#track-info h2').textContent = `Wind Speed: ${windSpeed}`
 
 function getFetch(){
   const poke = document.querySelector('#pokeAdd').value.toLowerCase()
@@ -53,7 +55,8 @@ function calculateSpeed(pokemon) {
 }
 
 //make Pokemon move incrementally based on their speed
-function runPokemon(pokeArray) {
+function runPokemon() {
+  let pokeArray = racers
 
   //get the time to start fading
   let start = Date.now()
