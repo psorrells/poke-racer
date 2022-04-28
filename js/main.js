@@ -34,9 +34,11 @@ function getFetch(){
 
 
 function calculateSpeed(pokemon) {
-  let speed = Math.random() * 5
+  let speed = Math.max(0, 10 - ((pokemon.weight/pokemon.height)/16 - 3)**2)
 
-  speed += pokemon.weight/pokemon.height + pokemon.height/windSpeed + windSpeed/pokemon.weight
+  let readiness = Math.random() * 5
+
+  speed += readiness + pokemon.height/windSpeed + windSpeed/pokemon.weight
 
   return speed
 
