@@ -68,6 +68,7 @@ function runPokemon() {
     for (pokemon of pokeArray) {
       let prevValue = parseFloat(document.querySelector(`#${pokemon.name}`).style.marginLeft.replace('px',''))
       if (prevValue > 1000) {
+          document.querySelector('h1').textContent = `${pokemon.name} wins!`
           clearInterval(timer) // finish the animation after someone crosses the finish line
       } 
     }
