@@ -19,6 +19,8 @@ function getFetch(){
           img: data.sprites.front_shiny
         }
 
+        pokeObj.speed = calculateSpeed(pokeObj)
+
         racers.push(pokeObj)
 
         let curPoke = document.createElement('img')
@@ -44,3 +46,36 @@ function calculateSpeed(pokemon) {
 
 }
 
+//make Pokemon move incrementally based on their speed
+function runPokemon(pokeArray) {
+
+  //get the time to start fading
+  let start = Date.now()
+
+  //create an interval that takes a function and the milliseconds between frames
+  let timer = setInterval(function() {
+      //how much time has passed from start
+      timePassed = Date.now() - start
+    for (pokemon of pokeArray) {
+      let prevValue = parseFloat(document.querySelector(`${pokemon.name}`).style.marginLeft.value.replace('px',''))
+      if (prevValue > 1000) {
+          clearInterval(timer) // finish the animation after someone crosses the finish line
+      } 
+    }
+      
+      //draw the animation at the moment time passed
+      changeLocation()
+
+      //incrementally change the location of pokemon
+      function changeLocation() {
+          for (pokemon of pokeArray) {
+            let prevValue = parseFloat(document.querySelector(`${pokemon.name}`).style.marginLeft.value.replace('px',''))
+            console.log(prevValue)
+            document.querySelector(`#${pokemon.name}`).style.marginLeft = `${pokemon.speed + prevValue}px`
+          } 
+      }
+
+  },20)
+
+
+}
